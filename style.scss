@@ -1,0 +1,147 @@
+$blue:gray;
+body{background:yellowgreen;}
+header{margin:20px 0 0 5%;}
+p{margin:20px 5%;}
+h1{color:$blue;font-size:40px;}
+h2{color:#708c87;margin:40px; }
+a{color:#708c87;}
+
+
+.grad{
+	padding:1%;
+	background-color:#f2efeb;
+	background-image:-webkit-gradient(linear,left top,left bottom,from(#f2efeb),to(#fff));
+	background-image:-webkit-linear-gradient(top,#f2efeb,#fff);
+	background-image:-moz-linear-gradient(top,#f2efeb,#fff);
+	background-image:-0-linear-gradient(top,#f2efeb,#fff);
+
+		p{
+	  	span{background:yellow;}
+	  	b{color:red;}
+	  	i{color:blue;}
+	  	a:hover{color:red}
+	  }
+	
+	.grad3{
+		@extend .grad1;
+	}
+	
+	.grad5{
+		@mixin border-radius($value){
+					width:$value;
+					height:$value;
+				    -webkit-border-radius:$value/2;
+				 	   -moz-border-radius:$value/2;
+				 	        border-radius:$value/2;
+			}
+
+		.grad5_1{
+			@include border-radius(100px)
+		}
+	}
+
+}
+	
+ @mixin border-radius($value){
+	 	-webkit-border-radius:$value;
+	 	   -moz-border-radius:$value;
+	 	        border-radius:$value;
+	 }
+.grad1{
+		@include border-radius(20px)
+	}	
+	
+@import"reset";
+
+ul{
+	list-style:none;
+	li{
+		width:100px;
+		height:100px;
+        a{
+            display:block;
+            width:100px;
+            height:100px;
+        }
+	}
+}
+$icons:(angular,css3,gulp,h5,jquery,js,phonegap,weixinjs,zepto);
+ @each $study in $icons {
+ 	.#{$study} {
+ 		background:url('images/#{$study}.png') #fff no-repeat;
+ 	}
+ }
+
+
+@each $p in(
+	grad1 black,
+	grad2 black+20,
+	grad3 black+40,
+	grad4 black+60
+	){
+	.#{nth($p,1)}{
+		background:#{nth($p,2)};
+	}
+}
+
+.grad1{
+    background:fade-out(red,0.4)!important;
+    width:percentage(850px/1440px)
+}
+
+
+
+@function text-contrast($background){
+	@if lightness($background)<50%{
+		@return lighten($background,70%);
+	}@else{
+		@return darken($background,30%);
+	}
+}
+
+@each $p in(
+	grad1 black,
+	grad2 black+20,
+	grad3 black+40,
+	grad4 black+60
+	){
+	.#{nth($p,1)}{
+		background:#{nth($p,2)};
+		color:text-contrast(nth($p,2));
+	}
+}
+
+@for $i from 1 through 4 {
+	.grad#{$i} {
+		margin-left:20px*$i;
+	}
+}
+
+%fontsize{
+	font-size:20px;
+}
+
+
+$j:1;
+@while $j <= 4{
+	.grad#{$j}{
+		margin-top:50px*$j;
+		@extend %fontsize;
+		$j:$j+1;
+	}
+}
+
+@mixin max-screen($res){
+    @media only screen and ( min-width:$res){
+        @content;
+    }
+}
+@include max-screen(480px) {
+    .grad2{ background: green!important;}
+}
+@include max-screen(780px) {
+    .grad2{ background: blue!important;}
+}
+@include max-screen(2014px) {
+    .grad2{ background: yellow!important;}
+}
